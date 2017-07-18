@@ -2,9 +2,14 @@
 
 namespace GildedRose.Console
 {
-    class Program
+    public class Program
     {
         IList<Item> Items;
+
+        public void SetItems(IList<Item> items)
+        {
+            Items = items;
+        }
         static void Main(string[] args)
         {
             System.Console.WriteLine("OMGHAI!");
