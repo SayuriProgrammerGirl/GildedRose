@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace GildedTests
 {
     [TestClass]
-    public class DexterityVestTests
+    public class RegularItemTests
     {
         readonly Program program = new Program();
         private Item item;
