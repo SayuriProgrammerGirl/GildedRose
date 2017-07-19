@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Policy;
+﻿using System.Collections.Generic;
 using GildedRose.Console;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -9,13 +7,23 @@ namespace GildedTests
     [TestClass]
     public class AgedBrieTests
     {
+        private Program program;
+        private Item item;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            program = new Program();
+            item = new Item { Name = "Aged Brie" };
+            program.SetItems(new List<Item>() { item });
+        }
+
+
         [TestMethod]
         public void WhenQualityAtLeast50AndStillDaysToSellQualityRemainsTheSame()
         {
-            var program = new Program();
-            var item = new Item { Name = "Aged Brie", SellIn = 2, Quality = 50 };
-
-            program.SetItems(new List<Item>() { item });
+            item.SellIn = 2;
+            item.Quality = 50;
 
             program.UpdateQuality();
 
@@ -26,11 +34,9 @@ namespace GildedTests
         [TestMethod]
         public void WhenQualityAtLeast50AndNoMoreDaysToSellQualityRemainsTheSame()
         {
-            var program = new Program();
-            var item = new Item { Name = "Aged Brie", SellIn = 0, Quality = 50 };
-
-            program.SetItems(new List<Item>() { item });
-
+            item.SellIn = 0;
+            item.Quality = 50;
+            
             program.UpdateQuality();
 
             Assert.AreEqual(50, item.Quality);
@@ -40,11 +46,9 @@ namespace GildedTests
         [TestMethod]
         public void WhenStillMoreDaysToSellQualityIncreaseByOne()
         {
-            var program = new Program();
-            var item = new Item { Name = "Aged Brie", SellIn = 10, Quality = 1 };
-
-            program.SetItems(new List<Item>() { item });
-
+            item.SellIn = 10;
+            item.Quality = 1;
+            
             program.UpdateQuality();
 
             Assert.AreEqual(2, item.Quality);
@@ -54,10 +58,8 @@ namespace GildedTests
         [TestMethod]
         public void WhenNoMoreDaysToSellQualityIncreaseByTwo()
         {
-            var program = new Program();
-            var item = new Item { Name = "Aged Brie", SellIn = 0, Quality = 1 };
-
-            program.SetItems(new List<Item>() { item });
+            item.SellIn = 0;
+            item.Quality = 1;
 
             program.UpdateQuality();
 
